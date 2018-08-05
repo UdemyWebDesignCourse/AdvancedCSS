@@ -1,0 +1,249 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+
+/*
+    this is a cross browser css tric to make sure all
+    browsers have this as their default before starting with
+    any pre-defined margins or paddings etc.. setttings 
+    everything in * is being inherited to the browser as  its 
+    default setting
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background-color: rgba(255, 255, 255, 0.322);
+    /* font-size: 10px; The root font size for font & length */
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #777;
+    padding: 30px;
+}
+
+
+/*
+    @ 95vh: means at all times the height of the box or 
+    element should be at 95 % of the view port height.
+    If you put 100 it would allways be 100 percent & the same
+    height of the view port at all times. 
+    @ cover: whatever the width of the viewport or the element 
+    it will always try to fit the element intisde of the box
+    
+    @clip-path: will clip at what coordianates x y(episonem) will 
+    be visible starting at top left and working clockwise topright,
+    bottom right, bottom left. 
+        - There is a program called clipy and it has predefined shapes with 
+        the corilated clip-path coordinates for various shapes at 
+            https://bennettfeely.com/clippy/
+*/
+
+.header {
+    position: relative;
+    height: 95vh;
+    background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.479), #28b48581), url(../img/hero.jpg);
+    background-size: cover;
+    background-position: top;
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+}
+
+
+/*
+    No need to specify the width. The height just needs to be known and the width is
+    automatically adjusted. If you only put the width then the height would be automatically
+    adjusted
+*/
+
+.logo-box {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+}
+
+.logo {
+    height: 35px;
+}
+
+
+/*
+    transform: translate(-50%, -50%); will make up for the difference in space & minus
+    that elements extra space
+*/
+
+.text-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.heading-primary {
+    color: #ffff;
+    text-transform: uppercase;
+    /*This will keep the imperfect background out of the element*/
+    backface-visibility: hidden;
+    margin-bottom: 45px;
+}
+
+.heading-primary-main {
+    display: block;
+    font-size: 60px;
+    font-weight: 400;
+    letter-spacing: 35px;
+    animation-name: moveInLeft;
+    animation-duration: 2s;
+    /*No need to specify duration with this
+    animation: moveInLeft 2s ease-in-out infinite;
+    animation-direction: alternate;
+    */
+}
+
+.heading-primary-sub {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 17.4px;
+    animation-name: moveInRight;
+    animation-duration: 2s;
+}
+
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-500px);
+    }
+    60% {
+        opacity: 0.57;
+        transform: translateX(120px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(200px);
+    }
+    60% {
+        opacity: 0.57;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+
+/*
+:link is a psudo class used for links. It is a special state for a selector when it is an achor element
+** inline-block is good for inline elements like a href so it can be displayed as if it was a normal block elm 
+** so you should always do that if you want to give padding, width, or height to an inline element
+HOW DO YOU KNOW WHAT AN INLINE ELEMENT IS:
+In HTML, inline elements are those which only occupy the space bounded by the tags defining the element, instead of breaking the flow of the content.
+You can always tell an inline element because An inline element does not start on a new line and only takes up as much width as necessary
+Inline elements are treated as if it is text
+@active - is when it is clicked it is the active pseduo class state in relation to its parent element
+@ transition: all .2s; is the same as animation: name duration eas-in, but for psedo classes
+with this you can name the animation or just say all 
+@box-shadow: x shadow direction, y shadow direction, blur, color/opacity of shadow  
+*/
+
+.btn:link,
+.btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all .2s;
+    position: relative;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.btn-white {
+    background-color: #fff;
+    color: #777
+}
+
+
+/*
+    This is exactly like our other pseudo element but it is hidden
+    so our hidden pseduo element below acts like the pseduo element right after the one we already slected
+The trick is to make a duplicate but put it behind the element we already have
+Must Always specify content & display for hidden pseudo element or it wont work
+the display should be same as the speduo element we are hidding.
+After speduo element is treated as a child of the btn element
+    */
+
+.btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 1.9s;
+}
+
+.btn-white::after {
+    background-color: #fff;
+}
+
+.btn:hover::after {
+    transform: scaleX(1.5) scaleY(1.6);
+    opacity: 0;
+}
+
+
+/*animation: animationName animationDuration timing delay*/
+
+
+/*animation-fill-mode: backwards automatically applied animation keys at 0% before the aimation starts*/
+
+.btn-animated {
+    animation: moveInBottom .5s ease-out .75s;
+    animation-fill-mode: backwards;
+}
