@@ -152,11 +152,33 @@ properties related to text are what get inherited font-family, font-size, color.
 When the line-height is increased in % it puts the parent and child further away  & 
 when the line-height is decreased in % it puts the parent child closer together
 
+rem is controlled by the root font-size measured in px. 
+Root font-size is the only one that will recieve px all other will be rem measurement.
+html{
+    font-size: 10px; // The document root font-size only one to be px
+}
+.parent{
+  font-size: 20px; 20 px gets converted to 2rem
+  line-height: 150%;  //150% of n/20 which is 30px
+}
+.child{
+   font-size: 25px; //25px get converted to 2.5rem because 25/10 is 2.5rem 1rem is 10px
+}
 
+The problem when using rem with a px for font-size is that it is a bad practice because it is
+making your website inaccessible to screen readers or other folks who change their default font size
+It will just be your root font-size only and not responsive to other with custom font-sizes. So it must be a percentage. 
+
+When font-size is at 100% the root font-size is 16px. So to find out what percentage we want for the 10px font-size we do 10/16 = 0.625 so 62% should be the root -fontsize;
+    - For screen readers & other browser that have their own cutsom default font size setting, to find
+    what the root font-size will be we multiply our root % font-size with their browser's font-size to get what the new root font-size will be
+        - eg: 62% is .62 * UsrFntSz = document's root font-size
+        - eg: .62*20px = 12.4px - New document root fon't size from a 20px customized browser font'szise
 Difference between em & rem
 em(fonts) use the parent of the current element as a reference 
 em(length) use current element as reference
 rem use the root font size as reference for both fonts and lengths
-
+    When its em measurements
+with em it not only depends on the root font-size but the parent font-size as well
 
 
